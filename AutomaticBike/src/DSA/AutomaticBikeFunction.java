@@ -58,7 +58,7 @@ public class AutomaticBikeFunction {
             case 3 -> speed = speed -= 3;
             case 4 -> speed = speed -= 4;
         }
-        if (speed > 0) speed = 0;
+        if (speed < 0) speed = 0;
     }
 }
 
