@@ -12,6 +12,7 @@ public class AutomaticBikeTest {
         bike.turnOn();
         assertTrue(bike.isOn());
     }
+
     @Test
     public void testBikeCanTurnOffBike() {
         AutomaticBikeFunction bike = new AutomaticBikeFunction();
@@ -20,6 +21,7 @@ public class AutomaticBikeTest {
         assertFalse(bike.isOn());
         assertEquals(0, bike.getSpeed());
     }
+
     @Test
     public void testBikeCanTurnOffBikeWithSpeed() {
         AutomaticBikeFunction bike = new AutomaticBikeFunction();
@@ -30,6 +32,7 @@ public class AutomaticBikeTest {
         assertEquals(0, bike.getSpeed());
 
     }
+
     @Test
     public void testAccelerationInGearOne() {
         AutomaticBikeFunction bike = new AutomaticBikeFunction();
@@ -49,6 +52,7 @@ public class AutomaticBikeTest {
         assertEquals(23, bike.getSpeed());
         assertEquals(2, bike.getGear());
     }
+
     @Test
     public void testAccelerationInGearThree() {
         AutomaticBikeFunction bike = new AutomaticBikeFunction();
@@ -67,6 +71,16 @@ public class AutomaticBikeTest {
         bike.accelerate();
         //assertEquals(44, bike.getSpeed());
         assertEquals(4, bike.getGear());
+
+    }
+
+    @Test
+    public void testSpeedShouldNotGoBelowZero() {
+        AutomaticBikeFunction bike = new AutomaticBikeFunction();
+        bike.turnOn();
+        bike.decelerate();
+        assertEquals(0, bike.getSpeed());
+
 
     }
 }
