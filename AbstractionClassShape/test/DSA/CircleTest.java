@@ -47,4 +47,15 @@ public class CircleTest {
         Shape rectangle = new Rectangle(2.0, 3.0);
         assertEquals(2 * (2.0 + 3.0), rectangle.perimeter(),0.01);
     }
+    @Test
+    public void testAbstraction5(){
+        Shape circle = new Circle(2.0);
+        assertEquals("Circle", circle.getName());
+    }
+    @Test
+    public void testAbstraction6(){
+        Shape rectangle = new Rectangle(2.0, 3.0);
+        assertEquals("Rectangle", rectangle.getName());
+    }
+   
 }
