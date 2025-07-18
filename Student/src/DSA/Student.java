@@ -6,14 +6,14 @@ public class Student {
     private double grade;
 
     public Student(String ada, int age, double grade) {
-        this.name = name;
+        setName(ada);
         setAge(age);
         setGrade(grade);
     }
     public String getName() {
         return name;
     }
-    public int setAge() {
+    public int getAge() {
         return age;
     }
     public double getGrade() {
