@@ -10,8 +10,11 @@ public class PhoneBook {
     public void addContact(Contact contact) {
         contacts.add(contact);
     }
-    public void removeContact(Contact contact) {
-        contacts.remove(contact);
+    public void removeContact(String phoneNumber) {
+        Contact toRemove = findByPhoneNumber(phoneNumber);
+        if (toRemove != null) {
+            contacts.remove(toRemove);
+        }
     }
     public Contact findByPhoneNumber(String phoneNumber) {
         for (Contact contact : contacts) {
@@ -24,7 +27,7 @@ public class PhoneBook {
     public List<Contact> findByFirstName(String firstName) {
         List<Contact> foundContacts = new ArrayList<>();
         for (Contact contact : contacts) {
-            if (contact.getFirstName().equals(firstName)) {
+            if (contact.getFirstName().equalsIgnoreCase(firstName)) {
                 foundContacts.add(contact);
             }
         }
@@ -33,7 +36,7 @@ public class PhoneBook {
     public List<Contact> findByLastName(String lastName) {
         List<Contact> foundContacts = new ArrayList<>();
         for (Contact contact : contacts) {
-            if (contact.getLastName().equals(lastName)) {
+            if (contact.getLastName().equalsIgnoreCase(lastName)) {
                 foundContacts.add(contact);
             }
         }
@@ -44,6 +47,7 @@ public class PhoneBook {
         if (foundContact != null) {
             foundContact.setFirstName(contact.getFirstName());
             foundContact.setLastName(contact.getLastName());
+            foundContact.setPhoneNumber(contact.getPhoneNumber());
         }
         else {
             System.out.println("No such contact");
