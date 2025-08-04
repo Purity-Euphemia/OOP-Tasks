@@ -76,6 +76,27 @@ public class MainApp {
                 }
                 System.out.println();
             }
+            else if (choice == 6){
+                System.out.print("Enter phone number to delete: ");
+                String phoneNumber = scanner.nextLine();
+                phoneBook.removeContact(phoneNumber);
+                System.out.println("Contact deleted successfully");
+                System.out.println();
+            }
+            else if (choice == 7){
+                System.out.println("Found contacts:");
+                for(Contact contact : phoneBook.getAllContacts()){
+                    System.out.println(contact);
+                }
+                System.out.println();
+            }
+            else if (choice == 8){
+                System.out.println("Exiting...");
+                break;
+            }
+            else{
+                System.out.println("Invalid choice");
+            }
         }
     }
 }
