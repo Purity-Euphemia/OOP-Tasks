@@ -32,6 +32,17 @@ public class MainApp {
                 phoneBook.addContact(contact);
                 System.out.println("Contact added successfully");
             }
+            else if (choice == 2){
+                System.out.print("Enter phone number to search: ");
+                String phoneNumber = scanner.nextLine();
+                Contact foundContact = phoneBook.findByPhoneNumber(phoneNumber);
+                if(foundContact != null){
+                    System.out.println(foundContact);
+                }
+                else{
+                    System.out.println("No such contact");
+                }
+            }
         }
     }
 }
