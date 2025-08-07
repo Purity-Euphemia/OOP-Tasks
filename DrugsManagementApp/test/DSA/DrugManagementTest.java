@@ -35,5 +35,16 @@ public class DrugManagementTest {
         assertNotNull(found);
         assertEquals("Amoxicillin", found.getDrug().getName());
     }
+    @Test
+    public void testRemoveDrugSuccess() {
+        DrugManagement manager = new DrugManagement();
+        Drug drug = new Drug(4, "Iron Supplement", new Date(2012, 11, 31), new Category("Anemia"), new Type("Syrup"));
+        manager.addDrug(drug, 50);
+        boolean result = manager.removeDrug("Iron Supplement");
+        assertTrue(result);
+        assertNull(manager.findDrugByName("Iron Supplement"));
+
+
+    }
 
 }
