@@ -79,6 +79,28 @@ public class DrugManagementTest {
         boolean result = manager.removeDrug("Nonexistent Drug");
         assertFalse(result);
     }
+    @Test
+    void testRemoveAllDrugsOneByOne() {
+        DrugManagement manager = new DrugManagement();
+        Drug drug1 = new Drug(6, "Amoxicillin", new Date(2026, 8, 1), new Category("Antibiotic"), new Type("Capsule"));
+        Drug drug2 = new Drug(7, "Iron Supplement", new Date(2025, 11, 31), new Category("Anemia"), new Type("Syrup"));
+        manager.addDrug(drug1, 100);
+        manager.addDrug(drug2, 50);
+        manager.removeDrug("Iron Supplement");
+        manager.removeDrug("Amoxicillin");
+        assertEquals(0, manager.getInventory().size());
+    }
+    @Test
+    void testAddDuplicateDrugName() {
+        DrugManagement manager = new DrugManagement();
+        Drug drug1 = new Drug(8, "Amoxicillin", new Date(2026, 12, 1), new Category("Antibiotic"), new Type("Capsule"));
+        Drug drug2 = new Drug(9, "Amoxicillin", new Date(2026, 12, 1), new Category("Antibiotic"), new Type("Capsule"));
+        manager.addDrug(drug1, 100);
+        manager.addDrug(drug2, 200);
+        long count = manager.getInventory().stream().filter(d -> d.getDrug().getName().equals("Amoxicillin")).count();
+        assertTrue(count > 1);
+    }
+
 
 
 }
