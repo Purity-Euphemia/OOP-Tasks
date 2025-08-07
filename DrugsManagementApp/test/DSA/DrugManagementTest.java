@@ -43,8 +43,20 @@ public class DrugManagementTest {
         boolean result = manager.removeDrug("Iron Supplement");
         assertTrue(result);
         assertNull(manager.findDrugByName("Iron Supplement"));
-
-
+    }
+    @Test
+    public void testFindDrugByNameNotExists() {
+        DrugManagement manager = new DrugManagement();
+        DrugInventory found = manager.findDrugByName("Panadol");
+        assertNull(found);
+    }
+    @Test
+    public void testCaseInsensiiveSearch() {
+        DrugManagement manager = new DrugManagement();
+        Drug drug = new Drug(4, "Amoxicillin", new Date(2026, 8, 1), new Category("Antibiotic"), new Type("Capsule"));
+        manager.addDrug(drug, 100);
+        DrugInventory found = manager.findDrugByName("aMoXiCiLlIn");
+        assertNotNull(found);
     }
 
 }
