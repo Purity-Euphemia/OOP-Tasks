@@ -58,5 +58,14 @@ public class DrugManagementTest {
         DrugInventory found = manager.findDrugByName("aMoXiCiLlIn");
         assertNotNull(found);
     }
+    @Test
+    void testUpdateDrugQuantitySuccess() {
+        DrugManagement manager = new DrugManagement();
+        Drug drug = new Drug(5, "Iron Supplement", new Date(2025, 11, 31), new Category("Anemia"), new Type("Syrup"));
+        manager.addDrug(drug, 50);
+        boolean result = manager.updateDrugQuantity("Iron Supplement", 120);
+        assertTrue(result);
+        assertEquals(120, manager.findDrugByName("Iron Supplement").getQuantity());
+    }
 
 }
