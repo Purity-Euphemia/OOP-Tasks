@@ -59,7 +59,7 @@ public class DrugManagementTest {
         assertNotNull(found);
     }
     @Test
-    void testUpdateDrugQuantitySuccess() {
+    public void testUpdateDrugQuantitySuccess() {
         DrugManagement manager = new DrugManagement();
         Drug drug = new Drug(5, "Iron Supplement", new Date(2025, 11, 31), new Category("Anemia"), new Type("Syrup"));
         manager.addDrug(drug, 50);
@@ -67,5 +67,18 @@ public class DrugManagementTest {
         assertTrue(result);
         assertEquals(120, manager.findDrugByName("Iron Supplement").getQuantity());
     }
+    @Test
+    public void testUpdateDrugQuantityFail() {
+        DrugManagement manager = new DrugManagement();
+        boolean result = manager.updateDrugQuantity("Nonexistent", 99);
+        assertFalse(result);
+    }
+    @Test
+    public void testRemoveDrugFail() {
+        DrugManagement manager = new DrugManagement();
+        boolean result = manager.removeDrug("Nonexistent Drug");
+        assertFalse(result);
+    }
+
 
 }
