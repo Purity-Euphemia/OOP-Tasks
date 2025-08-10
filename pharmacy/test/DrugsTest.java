@@ -39,6 +39,16 @@ public class DrugsTest {
         assertEquals(savedAlabuku, foundAlabuku);
     }
 
+    @Test
+    public void addSavedDrug_countIsOneTest() {
+        Drug panadol = new Drug();
+        Drug savedPanadol = drugs.save(panadol);
+        savedPanadol.setName("Panadol");
+        drugs.save(savedPanadol);
+        assertEquals(1,drugs.count());
+        assertEquals("Panadol",drugs.findById(savedPanadol.getId()).getName());
+    }
+
 
 
 }
