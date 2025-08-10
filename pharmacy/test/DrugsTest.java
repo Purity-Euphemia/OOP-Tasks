@@ -27,6 +27,18 @@ public class DrugsTest {
         assertEquals(savedDrug, foundDrug);
     }
 
+    @Test
+    public void add2Drug_findDrugsByIdReturnsDrugTest(){
+        Drug panadol = new Drug();
+        Drug alabuku = new Drug();
+        Drug savedPanadol = drugs.save(panadol);
+        Drug savedAlabuku = drugs.save(alabuku);
+        Drug foundPanadol = drugs.findById(savedPanadol.getId());
+        Drug foundAlabuku = drugs.findById(savedAlabuku.getId());
+        assertEquals(savedPanadol, foundPanadol);
+        assertEquals(savedAlabuku, foundAlabuku);
+    }
+
 
 
 }
