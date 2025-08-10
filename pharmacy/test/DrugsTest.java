@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class DrugsTest {
     private Drugs drugs;
@@ -47,6 +48,21 @@ public class DrugsTest {
         drugs.save(savedPanadol);
         assertEquals(1,drugs.count());
         assertEquals("Panadol",drugs.findById(savedPanadol.getId()).getName());
+    }
+
+    @Test
+    public  void saveDrug_assignsIdAutomatically() {
+        Drug drug = new Drug();
+        Drug saved = drugs.save(drug);
+        assertTrue(saved.getId() > 0);
+    }
+
+    @Test
+    public void saveDrugWithName_nameIsStoredCorrectly() {
+       Drug drug = new Drug();
+       drug.setName("Ibuprofen");
+       Drug saved = drugs.save(drug);
+       assertEquals("Ibuprofen",drugs.findById(saved.getId()).getName());
     }
 
 
