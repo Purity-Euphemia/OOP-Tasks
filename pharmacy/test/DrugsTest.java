@@ -169,7 +169,7 @@ public class DrugsTest {
     public void countIncreasesOnlyOnNewDrugs() {
         Drug d1 = drugs.save(new Drug());
         Drug d2 = drugs.save(new Drug());
-        Drug d3 = drugs.save(d1); // update
+        Drug d3 = drugs.save(d1);
         assertEquals(2, drugs.count());
     }
 
@@ -187,5 +187,5 @@ public class DrugsTest {
         drugs.save(drug);
         assertNotNull(drugs.findById(drug.getId()));
     }
-    
+
 }
