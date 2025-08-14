@@ -58,5 +58,18 @@ public class Drugs {
         }
         return null;
     }
+    public void delete(Drug drug) {
+        deleteById(drug.getId());
+    }
+
+    public Drug findByName(String name) {
+        for (Drug drug:drugs){
+            if (drug.getName().equalsIgnoreCase(name)) {
+                return drug;
+            }
+        }
+        return null;
+
+    }
 
 }
