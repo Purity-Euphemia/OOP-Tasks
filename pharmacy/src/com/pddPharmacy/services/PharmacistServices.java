@@ -9,9 +9,14 @@ import com.pddPharmacy.dtos.response.AddDrugResponse;
 
 import java.time.LocalDate;
 
+import static com.pddPharmacy.utils.Mappers.map;
+
 public class PharmacistServices {
    private Drugs drugs = new Drugs();
 
+   PharmacistServices(Drugs drugs) {
+       this.drugs = drugs;
+   }
 
    public AddDrugResponse addDrug(AddDrugRequest addDrugRequest) {
        Drug drug = map(addDrugRequest);
