@@ -5,6 +5,8 @@ import com.pddPharmacy.dtos.request.AddDrugRequest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDate;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class PharmacistServicesTest {
@@ -12,7 +14,9 @@ class PharmacistServicesTest {
     private Drugs drugs;
 
     @BeforeEach
-    void setUp() {
+    public void setUp() {
+        drugs = new Drugs();
+        pharmacistServices = new PharmacistServices(drugs);
     }
     @Test
     public void addDrug_drugCountIsOneTest() {
@@ -20,7 +24,11 @@ class PharmacistServicesTest {
         addDrugRequest.setName("Panadol");
         addDrugRequest.setCategory("Analgesic");
         addDrugRequest.setQuantity(5);
-        addDrugRequest.
+        addDrugRequest.setType("Capsule");
+        addDrugRequest.setManufactureOn(LocalDate.now());
+        addDrugRequest.setExpiry(addDrugRequest.getManufactureOn().plusMonths(5));
+        pharmacistServices.addDrug(addDrugRequest);
+        assertEquals(1L,drugs.count());
 
     }
 }
