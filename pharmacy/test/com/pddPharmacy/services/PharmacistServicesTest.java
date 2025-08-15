@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 
+import static com.pddPharmacy.data.models.Category.ANALGESIC;
 import static org.junit.jupiter.api.Assertions.*;
 
 class PharmacistServicesTest {
@@ -22,7 +23,7 @@ class PharmacistServicesTest {
     public void addDrug_drugCountIsOneTest() {
         AddDrugRequest addDrugRequest= new AddDrugRequest();
         addDrugRequest.setName("Panadol");
-        addDrugRequest.setCategory("Analgesic");
+        addDrugRequest.setCategory(ANALGESIC);
         addDrugRequest.setQuantity(5);
         addDrugRequest.setType("Capsule");
         addDrugRequest.setManufactureOn(LocalDate.now());
