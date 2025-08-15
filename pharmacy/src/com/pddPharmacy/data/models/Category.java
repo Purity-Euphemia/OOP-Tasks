@@ -1,7 +1,7 @@
 package com.pddPharmacy.data.models;
 
 public enum Category {
-    ANAGESTIC,
+    ANALGESIC,
     ANTIBIOTIC,
     MULTIVITAMINIC,
     SUPPLEMENT,

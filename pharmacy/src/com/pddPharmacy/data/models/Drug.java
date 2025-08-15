@@ -10,6 +10,7 @@ public class Drug {
     private Category category;
     private LocalDate expiry;
     private LocalDate manufactureOn;
+    private int quantity;
     private LocalDateTime dateAdded;
 
     public int getId() {
@@ -54,7 +55,10 @@ public class Drug {
     public void setDateAdded(LocalDateTime dateAdded) {
         this.dateAdded = dateAdded;
     }
-
-
-
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+    public int getQuantity() {
+        return quantity;
+    }
 }
