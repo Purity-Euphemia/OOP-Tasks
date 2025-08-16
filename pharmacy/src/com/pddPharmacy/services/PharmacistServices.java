@@ -7,8 +7,6 @@ import com.pddPharmacy.data.repositories.Drugs;
 import com.pddPharmacy.dtos.request.AddDrugRequest;
 import com.pddPharmacy.dtos.response.AddDrugResponse;
 
-import java.time.LocalDate;
-
 import static com.pddPharmacy.utils.Mappers.map;
 
 public class PharmacistServices {
@@ -21,6 +19,8 @@ public class PharmacistServices {
    public AddDrugResponse addDrug(AddDrugRequest addDrugRequest) {
        Drug drug = map(addDrugRequest);
        Drug savedDrug = drugs.save(drug);
-       return null;
+
+       AddDrugResponse addDrugResponse = map(savedDrug);
+       return addDrugResponse;
    }
 }
