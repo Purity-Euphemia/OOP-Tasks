@@ -4,6 +4,7 @@ import com.pddPharmacy.data.models.Category;
 import com.pddPharmacy.data.models.Drug;
 import com.pddPharmacy.data.models.Type;
 import com.pddPharmacy.dtos.request.AddDrugRequest;
+import com.pddPharmacy.dtos.response.AddDrugResponse;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -30,5 +31,11 @@ public class TestDataFactory {
         drug.setExpiry(LocalDate.now().plusMonths(10));
         drug.setDateAdded(LocalDateTime.now());
         return drug;
+    }
+    public static AddDrugResponse createAddDrugResponse(String name, String message) {
+        AddDrugResponse addDrugResponse = new AddDrugResponse();
+        addDrugResponse.setDrugName(name);
+        addDrugResponse.setMessage(message);
+        return addDrugResponse;
     }
 }
