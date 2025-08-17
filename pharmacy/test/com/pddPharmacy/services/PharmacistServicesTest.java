@@ -49,6 +49,15 @@ class PharmacistServicesTest {
         assertNotNull(found);
         assertEquals("Ibuprofen",found.getName());
     }
+    @Test
+    public void addedDrug_hasCorrectExpiryDateTest() {
+        AddDrugRequest addDrugRequest = TestDataFactory.createDrugRequest("Ibuprofen", ANALGESIC);
+        LocalDate expiry = LocalDate.now().plusMonths(6);
+        addDrugRequest.setExpiry(expiry);
+        pharmacistServices.addDrug(addDrugRequest);
+        Drug drug = drugs.findById(1);
+        assertEquals(expiry, drug.getExpiry());
+    }
 
 
 }
