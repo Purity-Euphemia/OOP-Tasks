@@ -1,8 +1,10 @@
 package com.pddPharmacy.services;
 
 import com.pddPharmacy.data.models.Category;
+import com.pddPharmacy.data.models.Drug;
 import com.pddPharmacy.data.repositories.Drugs;
 import com.pddPharmacy.dtos.request.AddDrugRequest;
+import com.pddPharmacy.testutils.TestDataFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -35,15 +37,18 @@ class PharmacistServicesTest {
     }
     @Test
     public void addMultipleDrugs_drugCountIsCorrectTest() {
-        pharmacistServices.addDrug(createRequest("Panadol", ANALGESIC));
-        pharmacistServices.addDrug(createRequest("Amoxicillin", ANTIBIOTIC));
+        pharmacistServices.addDrug(TestDataFactory.createDrugRequest("Panadol", ANALGESIC));
+        pharmacistServices.addDrug(TestDataFactory.createDrugRequest("Amoxicillin", ANTIBIOTIC));
         assertEquals(2L,drugs.count());
     }
-
-    private AddDrugRequest createRequest(String panadol, Category category) {
-        AddDrugRequest addDrugRequest = new AddDrugRequest();
-        addDrugRequest.setName(name);
-        addDrugRequest.
-
+    @Test
+    public void addedDrug_canBeFoundByIdTest() {
+        AddDrugRequest addDrugRequest = TestDataFactory.createDrugRequest("Ibuprofen", ANALGESIC);
+        pharmacistServices.addDrug(addDrugRequest);
+        Drug found = drugs.findById(1);
+        assertNotNull(found);
+        assertEquals("Ibuprofen",found.getName());
     }
+
+
 }
