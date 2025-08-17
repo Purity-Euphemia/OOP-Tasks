@@ -58,6 +58,15 @@ class PharmacistServicesTest {
         Drug drug = drugs.findById(1);
         assertEquals(expiry, drug.getExpiry());
     }
+    @Test
+    public void drugId_isGeneratedAutomaticallyTest() {
+        pharmacistServices.addDrug(TestDataFactory.createDrugRequest("Paracetamol", ANALGESIC));
+        pharmacistServices.addDrug(TestDataFactory.createDrugRequest("Erythromycin", ANTIBIOTIC));
+        Drug drug1 = drugs.findById(1);
+        Drug drug2 = drugs.findById(2);
+        assertEquals(1, drug1.getId());
+        assertEquals(2, drug2.getId());
+    }
 
 
 }
