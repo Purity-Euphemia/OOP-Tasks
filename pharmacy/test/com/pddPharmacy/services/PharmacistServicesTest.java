@@ -1,5 +1,6 @@
 package com.pddPharmacy.services;
 
+import com.pddPharmacy.data.models.Category;
 import com.pddPharmacy.data.repositories.Drugs;
 import com.pddPharmacy.dtos.request.AddDrugRequest;
 import org.junit.jupiter.api.BeforeEach;
@@ -8,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import java.time.LocalDate;
 
 import static com.pddPharmacy.data.models.Category.ANALGESIC;
+import static com.pddPharmacy.data.models.Category.ANTIBIOTIC;
 import static org.junit.jupiter.api.Assertions.*;
 
 class PharmacistServicesTest {
@@ -30,6 +32,18 @@ class PharmacistServicesTest {
         addDrugRequest.setExpiry(addDrugRequest.getManufactureOn().plusMonths(5));
         pharmacistServices.addDrug(addDrugRequest);
         assertEquals(1L,drugs.count());
+    }
+    @Test
+    public void addMultipleDrugs_drugCountIsCorrectTest() {
+        pharmacistServices.addDrug(createRequest("Panadol", ANALGESIC));
+        pharmacistServices.addDrug(createRequest("Amoxicillin", ANTIBIOTIC));
+        assertEquals(2L,drugs.count());
+    }
+
+    private AddDrugRequest createRequest(String panadol, Category category) {
+        AddDrugRequest addDrugRequest = new AddDrugRequest();
+        addDrugRequest.setName(name);
+        addDrugRequest.
 
     }
 }
