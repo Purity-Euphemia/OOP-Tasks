@@ -71,5 +71,8 @@ public class Drugs {
         return null;
 
     }
+    public List<Drug> findAll() {
+        return drugs;
+    }
 
 }
