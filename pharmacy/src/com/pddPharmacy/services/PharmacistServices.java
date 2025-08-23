@@ -8,9 +8,10 @@ import com.pddPharmacy.dtos.request.AddDrugRequest;
 import com.pddPharmacy.dtos.request.BuyDrugsRequest;
 import com.pddPharmacy.dtos.response.AddDrugResponse;
 import com.pddPharmacy.dtos.response.AvailableDrugResponse;
-import com.appPharmacy.exceptions.InvalidDrugQuantityException;
+import com.pddPharmacy.exceptions.InvalidDrugQuantityException;
 import com.pddPharmacy.utils.Mappers;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -33,7 +34,7 @@ public class PharmacistServices {
        drug.setQuantity(drug.getQuantity() - buyDrugsRequest.getQuantity());
        drugs.save(drug);
    }
-   public List<AvailableDrugResponse> getAvailable() {
+   public List<AvailableDrugResponse> getAvailableDrugs() {
        List<Drug> allDrugs = drugs.findAll();
        List<AvailableDrugResponse> availableDrugs = new ArrayList<>();
        for(Drug drug: allDrugs) {
@@ -41,8 +42,12 @@ public class PharmacistServices {
                AvailableDrugResponse availableDrugResponse = new AvailableDrugResponse();
                availableDrugResponse.setName(drug.getName());
                availableDrugResponse.setQuantity(drug.getQuantity());
-               availableDrugResponse.setIsExpired.(drug.getExpiryDate()
+               availableDrugResponse.setIsExpired(drug.getExpiryDate().isBefore(LocalDate.now()));
+               availableDrugs.add(availableDrugResponse);
            }
        }
+       return availableDrugs;
    }
+
+
 }
