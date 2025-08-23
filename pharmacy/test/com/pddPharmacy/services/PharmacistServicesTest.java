@@ -2,6 +2,7 @@ package com.pddPharmacy.services;
 
 import com.pddPharmacy.data.models.Category;
 import com.pddPharmacy.data.models.Drug;
+import com.pddPharmacy.data.models.Type;
 import com.pddPharmacy.data.repositories.Drugs;
 import com.pddPharmacy.dtos.request.AddDrugRequest;
 import com.pddPharmacy.dtos.request.BuyDrugsRequest;
@@ -23,15 +24,15 @@ class PharmacistServicesTest {
     @BeforeEach
     public void setUp() {
         drugs = new Drugs();
-        pharmacistServices = new PharmacistServices(drugs);
+        pharmacistServices = new PharmacistServices();
     }
     @Test
     public void addDrug_drugCountIsOneTest() {
         AddDrugRequest addDrugRequest= new AddDrugRequest();
         addDrugRequest.setName("Panadol");
-        addDrugRequest.setCategory(ANALGESIC);
+        addDrugRequest.setCategory(Category.ANALGESIC);
         addDrugRequest.setQuantity(5);
-        addDrugRequest.setType("Capsule");
+        addDrugRequest.setType(Type.CAPSULE);
         addDrugRequest.setManufactureOn(LocalDate.now());
         addDrugRequest.setExpiry(addDrugRequest.getManufactureOn().plusMonths(5));
         pharmacistServices.addDrug(addDrugRequest);
@@ -39,35 +40,68 @@ class PharmacistServicesTest {
     }
     @Test
     public void addDrugWithZeroQuantity_throwsException() {
-        AddDrugRequest Panadol = new AddDrugRequest();
-        Panadol.setName("Panadol");
-        Panadol.setCategory(ANALGESIC);
-        Panadol.setQuantity(0);
-        Panadol.setType("Capsule");
-        Panadol.setManufactureOn(LocalDate.now());
-        Panadol.setExpiry(Panadol.getManufactureOn().plusMonths(5));
-        assertThrows(InvalidDrugQuantityException.class, () -> PharmacistServices.addDrug(Panadol));
+        AddDrugRequest addDrugRequest = new AddDrugRequest();
+        addDrugRequest.setName("Panadol");
+        addDrugRequest.setCategory(Category.valueOf("ANALGESIC"));
+        addDrugRequest.setQuantity(0);
+        addDrugRequest.setType(Type.CAPSULE);
+        addDrugRequest.setManufactureOn(LocalDate.now());
+        addDrugRequest.setExpiry(addDrugRequest.getManufactureOn().plusMonths(5));
+        assertThrows(InvalidDrugQuantityException.class, () -> PharmacistServices.addDrug(addDrugRequest));
         assertEquals(0,drugs.count());
     }
     @Test
     public void buyDrugs_quantityReducesTest() {
-        AddDrugRequest Panadol = new AddDrugRequest();
-        Panadol.setName("Panadol");
-        Panadol.setCategory(ANALGESIC);
-        Panadol.setQuantity(15);
-        Panadol.setType("Capsule");
-        Panadol.setManufactureOn(LocalDate.now());
-        Panadol.setExpiry(Panadol.getManufactureOn().plusMonths(5));
-        BuyDrugsRequest Phensic = new BuyDrugsRequest();
-        Phensic.setDrugName("Panadol");
-        Phensic.setCategory(ANALGESIC);
-        Phensic.setQuantity(12);
-        Phensic.setType("Capsule");
-        Phensic.setManufactureOn(LocalDate.now());
-        Phensic.setExpiry(Phensic.getManufactureOn().plusMonths(5));
+        AddDrugRequest addDrugRequest = new AddDrugRequest();
+        addDrugRequest.setName("Panadol");
+        addDrugRequest.setCategory(Category.valueOf("ANALGESIC"));
+        addDrugRequest.setQuantity(15);
+        addDrugRequest.setType(Type.valueOf("CAPSULE"));
+        addDrugRequest.setManufactureOn(LocalDate.now());
+        addDrugRequest.setExpiry(addDrugRequest.getManufactureOn().plusMonths(5));
+        pharmacistServices.addDrug(addDrugRequest);
+        assertEquals(1L,drugs.count());
 
+        BuyDrugsRequest panadol = new BuyDrugsRequest();
+        panadol.setDrugName("Panadol");
+        panadol.setQuantity(15);
 
+        BuyDrugsRequest phensic = new BuyDrugsRequest();
+        phensic.setDrugName("Phensic");
+        phensic.setQuantity(3);
 
+        assertEquals(2, pharmacistServices.getAvailableDrugs().size());
+
+        pharmacistServices.buyDrugs(phensic);
+        pharmacistServices.buyDrugs(panadol);
+        assertEquals(1, pharmacistServices.getAvailableDrugs().size());
+        assertEquals(9,pharmacistServices.getAvailableDrugs().size());
+    }
+    @Test
+    public void availableDrugsCanBeFoundTest() {
+        AddDrugRequest panadol = new AddDrugRequest();
+        panadol.setName("Panadol");
+        panadol.setCategory(Category.valueOf("ANALGESIC"));
+        panadol.setQuantity(15);
+        panadol.setType(Type.valueOf("CAPSULE"));
+        panadol.setManufactureOn(LocalDate.now());
+        panadol.setExpiry(panadol.getManufactureOn().plusMonths(5));
+        pharmacistServices.addDrug(panadol);
+        AddDrugRequest phensic = new AddDrugRequest();
+        phensic.setName("Phensic");
+        phensic.setType(Type.CAPSULE);
+        phensic.setCategory(Category.ANALGESIC);
+        phensic.setQuantity(12);
+        phensic.setManufactureOn(LocalDate.now());
+        phensic.setExpiry(phensic.getManufactureOn().plusMonths(5));
+        pharmacistServices.addDrug(phensic);
+
+        BuyDrugsRequest buyDrugsRequest = new BuyDrugsRequest();
+        buyDrugsRequest.setDrugName("Panadol");
+        buyDrugsRequest.setQuantity(15);
+
+        pharmacistServices.buyDrugs(buyDrugsRequest);
+        pharmacistServices.buyDrugs(buyDrugsRequest);
     }
 //    @Test
 //    public void addMultipleDrugs_drugCountIsCorrectTest() {
