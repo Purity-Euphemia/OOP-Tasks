@@ -19,4 +19,20 @@ public class TodoController {
     public List<Todo> getAllTodos(){
         return todoRepository.findAll();
     }
+    @PostMapping
+    public Todo createTodo(@RequestBody Todo todo) {
+        return todoRepository.save(todo);
+    }
+    @PutMapping
+    public Todo updateTodo(@PathVariable String id, @RequestBody Todo updated){
+        return todoRepository.findById(id).map(todo -> {
+            todo.setTitle(updated.getTitle());
+            todo.setCompleted(updated.isCompleted());
+            return todoRepository.save(todo);
+        }).orElseGet(null);
+    }
+    @DeleteMapping("/{id}")
+    public void deleteTodo(@PathVariable String id){
+        todoRepository.deleteById(id);
+    }
 }
