@@ -2,13 +2,13 @@ package com.todo.controllers;
 
 import com.todo.data.models.Todo;
 import com.todo.data.repositories.TodoRepository;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
-@RequestMapping
-@CrossOrigin//(origins = "http://localhost:3000")
+@Controller
 public class TodoController {
     private final TodoRepository todoRepository;
 
@@ -16,8 +16,9 @@ public class TodoController {
         this.todoRepository = todoRepository;
     }
     @GetMapping
-    public List<Todo> getAllTodos(){
-        return todoRepository.findAll();
+    public String getTodos(Model model){
+     model.addAttribute("todos", todoRepository.findAll());
+     return "todos";
     }
     @PostMapping
     public Todo createTodo(@RequestBody Todo todo) {
